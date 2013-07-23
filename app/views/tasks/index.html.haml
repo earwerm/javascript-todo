@@ -37,6 +37,7 @@
           = link_to('Cancel', '#', :id => 'cancel_task', :class => 'button radius tiny alert')
           = submit_tag 'New Task', :id => 'create_task', :class => 'button radius tiny'
           = submit_tag 'Edit Task', :id => 'update_task', :class => 'button radius success tiny'
+          = select_tag 'priority_id', options_from_collection_for_select(@auth.priorities, 'id', 'name')
   %div.small-9.columns
 
 

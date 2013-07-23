@@ -17,5 +17,9 @@
 //= require underscore
 //= require_tree .
 //= require 'minicolors/jquery.minicolors.js'
+//= require priorities
+//= require maps
+//= require tasks
+//= require todo
 
 $(function(){ $(document).foundation(); });
