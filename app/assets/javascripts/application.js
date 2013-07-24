@@ -12,14 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require foundation
-//= require turbolinks
-//= require underscore
-//= require_tree .
-//= require 'minicolors/jquery.minicolors.js'
 //= require priorities
 //= require maps
 //= require tasks
 //= require todo
+//= require foundation
+//= require 'minicolors/jquery.minicolors.js'
+//= require underscore
+//= require_tree .
+
+
 
 $(function(){ $(document).foundation(); });

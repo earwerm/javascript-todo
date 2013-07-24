@@ -1,17 +1,27 @@
-%ol
+%script
+  var tasks = [];
+%ol#tasks.no-bullet
   - @tasks.each do |task|
     %li
-      %ul
+      %ul{:class => task.is_complete? && "complete"}
         %script
           = "$(document).ready(function () {"
           = "add_marker(#{task.latitude}, #{task.longitude}, '#{task.title}');"
           = "});"
-        %li= task.title
-        %li= task.description
-        %li= task.duedate
-        %li= task.is_complete
-        %li= task.priority.name
-        %li= task.address
+          = "tasks.push({id: #{task.id}, title: '#{task.title}', description: '#{task.description}', duedate: '#{task.duedate}', is_complete: #{task.is_complete || 'false'}, priority_id: #{task.priority_id}, priority: {name: '#{task.priority.name}', color: '#{task.priority.color}'}, address: '#{task.address}', longitude: #{task.longitude}, latitude: #{task.latitude}});"
+        %li.title= task.title
+        %li.description= task.description
+        %li.duedate.to_moment= task.duedate
+        %li.is_complete
+          Completed:
+          = check_box_tag 'iscomplete', nil, task.is_complete
+        %li.priority_name
+          %span.color_box.invisible= task.priority.color
+          = task.priority.name
+        %li.priority_id.invisible= task.priority_id
+        %li.task_id.invisible= task.id
+        %li.address= task.address
+        %li= button_tag 'Edit task', :class => 'edit_task button radius tiny'
 
 %div#map
   %div#map_canvas
@@ -28,16 +38,17 @@
           = label_tag 'description'
           = text_field_tag 'description'
           = label_tag 'duedate'
-          = text_field_tag 'duedate'
+          = text_field_tag 'duedate', nil, :type => 'date'
           = label_tag 'is_complete'
-          = text_field_tag 'is_complete'
+          = check_box_tag 'is_complete'
           = label_tag 'address'
-          = text_field_tag 'address'
+          = text_area_tag 'address'
+          = label_tag 'priority'
+          = select_tag 'priority_id', options_from_collection_for_select(@auth.priorities.order(:value).reverse, 'id', 'name')
           = hidden_field_tag 'task_id'
           = link_to('Cancel', '#', :id => 'cancel_task', :class => 'button radius tiny alert')
           = submit_tag 'New Task', :id => 'create_task', :class => 'button radius tiny'
           = submit_tag 'Edit Task', :id => 'update_task', :class => 'button radius success tiny'
-          = select_tag 'priority_id', options_from_collection_for_select(@auth.priorities, 'id', 'name')
   %div.small-9.columns
 
 

@@ -9,7 +9,7 @@ body {
 }
 
 .invisible {
-display: none;
+  display: none!important;
 }
 
 .color_box {
@@ -17,13 +17,21 @@ display: none;
   border: 1px solid black;
   width: 25px;
   height: 25px;
-  margin: 0px 5px 5px 0px;
+  margin: 0 5px 5px 0;
   vertical-align: middle;
   cursor: pointer;
 }
 
 .color_box:hover {
   border-color: pink;
+}
+
+#tasks .complete .title {
+  text-decoration: line-through;
+}
+
+#map {
+  height: 100%;
 }
 
 #map_canvas {
